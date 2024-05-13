@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+<body>
+  <div class="container">
+    <form class="submit-form" method="post" action="" enctype="multipart/form-data">
+      <div class="drag-image">
+        <h6>Drag & Drop File Here</h6>
+        <span>OR</span>
+        <button class="browse-file-btn" type="button">Browse File</button>
+        <input class="file-input" type="file" hidden>
+      </div>
+      <button class="submit-btn" type="submit" disabled>
+        <div class="loader"></div>
+        Upload
+      </button>
+    </form>
+    <div class="response-wrapper">
+      <span class="response-span">LLM Response: </span>
+      <span class="llm-response"></span>
+    </div>
+  </div>
+  <script src="drag-n-drop.js"></script>
+  <script src="main.js"></script>
+</html>
