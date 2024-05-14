@@ -102,10 +102,18 @@ body{
 .response-wrapper{
   display: none;
   max-width: 500px;
+  margin-top: 20px;
 }
 .response-span{
   font-weight: bold;
 }
+.country-span{
+  font-weight: bold;
+}
+.region-span{
+  font-weight: bold;
+}
+
 
 
 .loader {

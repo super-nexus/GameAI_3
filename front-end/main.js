@@ -1,6 +1,8 @@
 const submitForm = document.querySelector('.submit-form');
 const responseWrapper = document.querySelector('.response-wrapper'),
   responseBox = responseWrapper.querySelector('.llm-response'),
+  countryBox = responseWrapper.querySelector('.llm-response-country'),
+  regionBox = responseWrapper.querySelector('.llm-response-region'),
   loader = submitForm.querySelector('.loader');
 
 
@@ -24,7 +26,10 @@ submitForm.addEventListener('submit', async (e) => {
   }).then(async (data) => await data.json())
   .then((data) => {
     responseWrapper.style.display = 'block';
-    response.textContent = data.message;
+    console.log(data);
+    responseBox.textContent = data.message.image_description;
+    regionBox.textContent = data.message.region;
+    countryBox.textContent = data.message.country;
   })
   .catch((err) => {
     console.log(err);
