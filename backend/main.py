@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 from llm_agents.gpt_agent import GPTAgent
+from llm_agents.llava_phi_3_mini import LLavaPhi3MiniAgent
 from dotenv import load_dotenv
 import os
 
@@ -9,7 +10,7 @@ UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 load_dotenv()
-current_agent = GPTAgent()
+current_agent = LLavaPhi3MiniAgent()
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
