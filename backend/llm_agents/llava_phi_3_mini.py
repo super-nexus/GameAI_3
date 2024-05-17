@@ -1,7 +1,6 @@
 from transformers import pipeline
 from PIL import Image    
 from llm_agents.base_llm_agent import BaseLLMAgent
-import requests
 
 
 class LLavaPhi3MiniAgent(BaseLLMAgent):
@@ -15,7 +14,7 @@ class LLavaPhi3MiniAgent(BaseLLMAgent):
 
     def determine_region(self, image_path):
         image = Image.open(image_path)
-        outputs = pipe(image, prompt=self.prompt, generate_kwargs={"max_new_tokens": 200})
+        outputs = self.pipe(image, prompt=self.prompt, generate_kwargs={"max_new_tokens": 200})
         print(outputs)
         return outputs[0]['generated_text']
 
