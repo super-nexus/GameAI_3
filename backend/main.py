@@ -4,13 +4,13 @@ from llm_agents.llava_phi_3_mini import LLavaPhi3MiniAgent
 from dotenv import load_dotenv
 import os
 
+current_agent = LLavaPhi3MiniAgent()
 
 app = Flask(__name__, static_folder='../front-end')
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 load_dotenv()
-current_agent = LLavaPhi3MiniAgent()
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -56,4 +56,4 @@ def upload_image():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(debug=False, port=8080)
