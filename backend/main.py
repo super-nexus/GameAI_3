@@ -9,7 +9,7 @@ UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 load_dotenv()
-gpt_agent = GPTAgent()
+current_agent = GPTAgent()
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -48,7 +48,7 @@ def upload_image():
     else:
         return jsonify({'error': 'Invalid file format'})
 
-    response = gpt_agent.determine_region(file_path)
+    response = current_agent.determine_region(file_path)
     print(response)
     return jsonify({'message': response})
 

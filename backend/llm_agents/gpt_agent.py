@@ -27,6 +27,9 @@ class GPTAgent(BaseLLMAgent):
             output_variables=["image"],
             transform=self.load_image
         )
+
+    def name(self) -> str:
+        return "gpt"
     
     def load_image(self, inputs: dict) -> dict:
         """Load image from file and encode it as base64."""
