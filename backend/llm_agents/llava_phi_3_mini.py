@@ -1,21 +1,15 @@
 from transformers import pipeline
-from PIL import Image    
-from llm_agents.base_llm_agent import BaseLLMAgent
+from PIL import Image
+from llm_agents.base_llama_agent import BaseLlamaAgent    
+from llama_cpp.llama_chat_format import Llava15ChatHandler
 
 
-class LLavaPhi3MiniAgent(BaseLLMAgent):
+class LLavaPhi3MiniAgent(BaseLlamaAgent):
     def __init__(self):
-        self.model_id = "xtuner/llava-phi-3-mini-hf"
-        self.pipe = pipeline("image-to-text", model=self.model_id, device='cuda')
-        self.prompt = "<|user|>\n<image>\nWhere do you think the following image is located, return the response as a json with two keys, first key is the country (all lowercase) where you specify which country do you think is depicted in the picture, second key is the region (all lowercase) where you specify whether you think that is east, west, north, south or central part of that country.<|end|>\n<|assistant|>\n"
+        mmproj_path = "models/llava-phi-3-mini-mmproj-f16.gguf"
+        model_path = "models/llava-phi-3-mini.gguf"
+        chat_handler = Llava15ChatHandler(clip_model_path=mmproj_path)
+        super().__init__(model_path, 28, chat_handler)
 
     def name(self):
         return "llava-phi-3-mini"
-
-    def determine_region(self, image_path):
-        image = Image.open(image_path)
-        outputs = self.pipe(image, prompt=self.prompt, generate_kwargs={"max_new_tokens": 200})
-        print(outputs)
-        return outputs[0]['generated_text']
-
-
