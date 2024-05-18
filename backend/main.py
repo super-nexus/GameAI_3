@@ -3,6 +3,7 @@ from llm_agents.gpt_agent import GPTAgent
 from llm_agents.llava_phi_3_mini import LLavaPhi3MiniAgent
 from dotenv import load_dotenv
 import os
+import torch
 
 current_agent = LLavaPhi3MiniAgent()
 
@@ -30,6 +31,33 @@ def serve_static(path):
     if not os.path.exists(os.path.join(app.static_folder, path)):
         return send_from_directory(app.static_folder, 'index.html')
     return send_from_directory(app.static_folder, path)
+
+
+@app.route('/agent', methods=['GET'])
+def get_agent():
+    return jsonify({'agent': current_agent.name()})
+
+
+@app.route('/agent', methods=['POST'])
+def set_agent():
+    agent = request.json['agent'].lower()
+    
+    if agent == current_agent.name():
+        return jsonify({'agent': current_agent.name()})
+
+    # Free up GPU memory before loading new agent
+    global current_agent
+    del current_agent
+    torch.cuda.empty_cache()
+
+    if agent == 'gpt':
+        current_agent = GPTAgent()
+    elif agent == 'llava-phi-3-mini':
+        current_agent = LLavaPhi3MiniAgent()
+    else:
+        return jsonify({'error': 'Invalid agent'})
+
+    return jsonify({'agent': current_agent.name()})
 
 
 @app.route('/upload', methods=['POST'])
