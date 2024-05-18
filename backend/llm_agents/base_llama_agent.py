@@ -1,4 +1,4 @@
-from backend.llm_agents.base_llm_agent import BaseLLMAgent
+from llm_agents.base_llm_agent import BaseLLMAgent
 from llama_cpp import Llama
 import base64
 
