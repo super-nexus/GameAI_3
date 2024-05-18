@@ -1,6 +1,7 @@
 from llm_agents.base_llm_agent import BaseLLMAgent
 from llama_cpp import Llama
 import base64
+import json
 
 class BaseLlamaAgent(BaseLLMAgent):
 
@@ -45,7 +46,7 @@ class BaseLlamaAgent(BaseLLMAgent):
             temperature=0.3,
         )
 
-        return response['choices'][0]['message']['content']
+        return json.loads(response['choices'][0]['message']['content'])
 
 
 
