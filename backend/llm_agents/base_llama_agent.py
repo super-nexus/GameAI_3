@@ -37,6 +37,7 @@ class BaseLlamaAgent(BaseLLMAgent):
                 "schema": {
                     "type": "object",
                     "properties": {
+                        "image_description": {"type": "string"},
                         "country": {"type": "string"},
                         "region": {"type": "string"},
                     },
