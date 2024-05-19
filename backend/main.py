@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify, send_from_directory
 from llm_agents.gpt_agent import GPTAgent
 from llm_agents.llava_phi_3_mini import LLavaPhi3MiniAgent
 from dotenv import load_dotenv
+from numba import cuda
 import os
 import torch
+import gc
 
 current_agent = LLavaPhi3MiniAgent()
 
@@ -40,15 +42,17 @@ def get_agent():
 
 @app.route('/agent', methods=['POST'])
 def set_agent():
+    global current_agent
     agent = request.json['agent'].lower()
     
     if agent == current_agent.name():
         return jsonify({'agent': current_agent.name()})
 
     # Free up GPU memory before loading new agent
-    global current_agent
     del current_agent
-    torch.cuda.empty_cache()
+    gc.collect()
+    device = cuda.get_current_device()
+    device.reset()
 
     if agent == 'gpt':
         current_agent = GPTAgent()
@@ -84,4 +88,4 @@ def upload_image():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=8080)
+    app.run(host="192.168.0.116",debug=False, port=8080)
