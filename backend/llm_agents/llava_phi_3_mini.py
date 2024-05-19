@@ -1,5 +1,3 @@
-from transformers import pipeline
-from PIL import Image
 from llm_agents.base_llama_agent import BaseLlamaAgent    
 from llama_cpp.llama_chat_format import Llava15ChatHandler
 

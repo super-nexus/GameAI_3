@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify, send_from_directory
 from llm_agents.gpt_agent import GPTAgent
 from llm_agents.llava_phi_3_mini import LLavaPhi3MiniAgent
+from llm_agents.llava_15_7b import Llava157B
 from dotenv import load_dotenv
 from numba import cuda
 import os
-import torch
 import gc
 
-current_agent = LLavaPhi3MiniAgent()
+current_agent = GPTAgent()
 
 app = Flask(__name__, static_folder='../front-end')
 UPLOAD_FOLDER = 'uploads'
@@ -54,12 +54,15 @@ def set_agent():
     device = cuda.get_current_device()
     device.reset()
 
-    if agent == 'gpt':
-        current_agent = GPTAgent()
-    elif agent == 'llava-phi-3-mini':
-        current_agent = LLavaPhi3MiniAgent()
-    else:
-        return jsonify({'error': 'Invalid agent'})
+    match agent:
+        case 'gpt':
+            current_agent = GPTAgent()
+        case 'llava-phi-3-mini':
+            current_agent = LLavaPhi3MiniAgent()
+        case 'llava-15-7b':
+            current_agent = Llava157B()
+        case _:
+            return jsonify({'error': 'Invalid agent'})
 
     return jsonify({'agent': current_agent.name()})
 
@@ -84,7 +87,6 @@ def upload_image():
     response = current_agent.determine_region(file_path)
     print(response)
     return jsonify({'message': response})
-
 
 
 if __name__ == '__main__':
