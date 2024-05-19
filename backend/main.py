@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from llm_agents.gpt_agent import GPTAgent
 from llm_agents.llava_phi_3_mini import LLavaPhi3MiniAgent
 from llm_agents.llava_15_7b import Llava157B
+from llm_agents.llava_3_8b import Llava38b
 from dotenv import load_dotenv
 from numba import cuda
 import os
@@ -61,6 +62,8 @@ def set_agent():
             current_agent = LLavaPhi3MiniAgent()
         case 'llava-15-7b':
             current_agent = Llava157B()
+        case 'llava-3-8b':
+            current_agent = Llava38b()
         case _:
             return jsonify({'error': 'Invalid agent'})
 
