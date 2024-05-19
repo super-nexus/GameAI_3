@@ -59,7 +59,7 @@ parser = JsonOutputParser(pydantic_object=ImageInformation)
 @chain
 def image_model(inputs: dict) -> str | list[str] | dict:
      """Invoke model with image and prompt."""
-     model = ChatOpenAI(temperature=0.5, model="gpt-4-vision-preview", max_tokens=1024)
+     model = ChatOpenAI(temperature=0.5, model="gpt-4o", max_tokens=1024)
      system_message = SystemMessage("You are an expert geoguessr player and you are trying to estimate the location of the image.")
      human_message = HumanMessage(
          content=[
