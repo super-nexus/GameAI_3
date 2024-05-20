@@ -54,20 +54,25 @@ def set_agent():
     gc.collect()
     device = cuda.get_current_device()
     device.reset()
-
-    match agent:
-        case 'gpt':
-            current_agent = GPTAgent()
-        case 'llava-phi-3-mini':
-            current_agent = LLavaPhi3MiniAgent()
-        case 'llava-15-7b':
-            current_agent = Llava157B()
-        case 'llava-3-8b':
-            current_agent = Llava38b()
-        case _:
-            current_agent = GPTAgent()
-            print('Invalid agent, defaulting to GPT')
-            return jsonify({'error': 'Invalid agent'})
+    
+    try:
+        match agent:
+            case 'gpt':
+                current_agent = GPTAgent()
+            case 'llava-phi-3-mini':
+                current_agent = LLavaPhi3MiniAgent()
+            case 'llava-15-7b':
+                current_agent = Llava157B()
+            case 'llava-3-8b':
+                current_agent = Llava38b()
+            case _:
+                current_agent = GPTAgent()
+                print('Invalid agent, defaulting to GPT')
+                return jsonify({'error': 'Invalid agent'})
+    except Exception as e:
+        print(e)
+        current_agent = GPTAgent()
+        return jsonify({'error': 'Error loading agent'})
 
     return jsonify({'agent': current_agent.name()})
 

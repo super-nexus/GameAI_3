@@ -24,5 +24,14 @@ modelSelect.addEventListener('change', async () => {
   });
 
   llmLoading.style.display = 'none';
+});
 
+
+fetch(`/agent`)
+.then(async (data) => await data.json())
+.then((data) => {
+  modelSelect.value = data.agent;
+})
+.catch((err) => {
+  console.log(err);
 });
