@@ -22,6 +22,7 @@ body{
   justify-content: center;
   flex-direction: column;
   position: relative;
+  margin-top: 15px;
 }
 .drag-image.active{
   border: 2px solid #21c600;
@@ -160,4 +161,52 @@ body{
 }
 .delete-file-btn:after {
   transform: rotate(-45deg);
+}
+
+.custom-select {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #000;
+  border: 1px solid #21c600;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  width: 200px; /* Adjust as needed */
+  margin-top: 20px;
+}
+
+.custom-select:hover {
+  border-color: #18a500;
+}
+
+.custom-select:focus {
+  border-color: #18a500;
+  outline: none;
+}
+
+.custom-select option {
+  font-weight: 300;
+}
+
+.llm-loading{
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: space-around;
+  align-items: center;
+  background: #fffa;
+  flex-direction: column;
+}
+
+.loader-big{
+  display: block;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #21c600;
+  width: 70px;
+  height: 70px;
 }

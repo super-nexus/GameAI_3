@@ -8,12 +8,22 @@
 <body>
   <div class="container">
     <form class="submit-form" method="post" action="" enctype="multipart/form-data">
+      <select class="custom-select model-select" name="model" required>
+        <option value="" disabled selected>Select LLM Model</option>
+        <option value="gpt">GPT-4o</option>
+        <option value="llava-3-8b">LLaVA-3-8b</option>
+        <option value="llava-1.5-7b">LLaVA-1.5-7b</option>
+      </select>
       <div class="drag-image">
         <h6>Drag & Drop File Here</h6>
         <span>OR</span>
         <button class="browse-file-btn" type="button">Browse File</button>
         <input class="file-input" type="file" hidden>
         <a class="delete-file-btn" type="button" hidden></a>
+        <div class="llm-loading">
+          Loading LLM Model...
+          <div class="loader loader-big"></div>
+        </div>
       </div>
       <button class="submit-btn" type="submit" disabled>
         <div class="loader"></div>
@@ -34,4 +44,5 @@
   </div>
   <script src="drag-n-drop.js"></script>
   <script src="main.js"></script>
+  <script src="model-loader.js"></script>
 </html>
