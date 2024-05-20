@@ -65,6 +65,8 @@ def set_agent():
         case 'llava-3-8b':
             current_agent = Llava38b()
         case _:
+            current_agent = GPTAgent()
+            print('Invalid agent, defaulting to GPT')
             return jsonify({'error': 'Invalid agent'})
 
     return jsonify({'agent': current_agent.name()})
