@@ -26,6 +26,6 @@ Finally, you will need to download the models and place them within `backend/mod
 
 * [Llava-3-8B](https://huggingface.co/xtuner/llava-llama-3-8b-v1_1-gguf/resolve/main/llava-llama-3-8b-v1_1-f16.gguf?download=true)
 * [Llava-3-8B-mmproj](https://huggingface.co/xtuner/llava-llama-3-8b-v1_1-gguf/resolve/main/llava-llama-3-8b-v1_1-mmproj-f16.gguf?download=true)
-* [Llava-1.5-7B)(https://huggingface.co/mys/ggml_llava-v1.5-7b/resolve/main/ggml-model-q5_k.gguf?download=true)
+* [Llava-1.5-7B](https://huggingface.co/mys/ggml_llava-v1.5-7b/resolve/main/ggml-model-q5_k.gguf?download=true)
 * [Llava-1.5-7B-mmproj](https://huggingface.co/mys/ggml_llava-v1.5-7b/resolve/main/mmproj-model-f16.gguf?download=true)
 
