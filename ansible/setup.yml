@@ -1,0 +1,60 @@
+---
+- name: Setup game AI web-app
+  hosts: all
+  vars:
+    app_path: "{{ ansible_env.HOME }}/game_ai"
+    models_path: "{{ app_path }}/backend/models"
+    pip_path: /opt/conda/bin/pip
+  tasks:
+
+    - name: Clone web-app git directory
+      git:
+        repo: https://github.com/super-nexus/GameAI_3
+        version: llava
+        dest: "{{ app_path }}" 
+
+    - name: Install needed pip packages
+      pip:
+        executable: "{{ pip_path }}"
+        requirements: "{{ app_path }}/backend/requirements.txt"
+
+    - name: Install llama-cpp-python
+      shell: CMAKE_ARGS="-DLLAMA_CUDA=on" /opt/conda/bin/pip install llama-cpp-python
+
+    - name: Create directory for models
+      file:
+        path: "{{ models_path }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download llava-phi-3-mini
+      get_url:
+        url: https://huggingface.co/xtuner/llava-phi-3-mini-gguf/resolve/main/llava-phi-3-mini-f16.gguf?download=true
+        dest: "{{ models_path }}/llava-phi-3-mini.gguf"
+
+    - name: Download llava-phi-3-mini mmproj
+      get_url:
+        url: https://huggingface.co/xtuner/llava-phi-3-mini-gguf/resolve/main/llava-phi-3-mini-mmproj-f16.gguf?download=true
+        dest: "{{ models_path }}/llava-phi-3-mini-mmproj.gguf"
+
+    - name: Download llava-3-8b
+      get_url:
+        url: https://huggingface.co/xtuner/llava-llama-3-8b-v1_1-gguf/resolve/main/llava-llama-3-8b-v1_1-f16.gguf?download=true
+        dest: "{{ models_path }}/llava-3-8b.gguf"
+
+    - name: Download llava-3-8b mmproj
+      get_url:
+        url: https://huggingface.co/xtuner/llava-llama-3-8b-v1_1-gguf/resolve/main/llava-llama-3-8b-v1_1-mmproj-f16.gguf?download=true
+        dest: "{{ models_path }}/llava-3-8b-mmproj.gguf"
+
+    - name: Download llava-15-7b
+      get_url:
+        url: https://huggingface.co/mys/ggml_llava-v1.5-7b/resolve/main/ggml-model-q5_k.gguf?download=true
+        dest: "{{ models_path }}/llava-15-7b.gguf"
+
+    - name: Download llava-15-7b mmproj
+      get_url: 
+        url: https://huggingface.co/mys/ggml_llava-v1.5-7b/resolve/main/mmproj-model-f16.gguf?download=true
+        dest: "{{ models_path }}/llava-15-7b-mmproj.gguf"
+
+
